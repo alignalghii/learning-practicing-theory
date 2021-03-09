@@ -1,0 +1,167 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{t1enc}
+
+\usepackage{proof}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{BOONDOX-calo}
+\newcommand{\obSet}{\ob_{\setCat}}
+\newcommand{\ob}{\mathsf{Ob}}
+\newcommand{\setCat}{\mathbf{Set}}
+
+\newcommand{\parenth}[1]{\left(#1\right)}
+\newcommand{\setOf}[1]{\left\lbrace\,#1\,\right\rbrace}
+\newcommand{\setAbs}[2]{\left\lbrace\,\,#1\,\middle|\,\,#2\,\right\rbrace}
+
+\usepackage{stmaryrd}
+
+\newtheorem{thm}{Theorem}
+
+\usepackage{comment}
+
+\title{My first experience in categry theory}
+\author{Endrey Márk}
+
+\begin{document}
+	\maketitle
+	\begin{comment}
+		\[
+			\infer[(\lor E)_{a,b}]{C}{
+				A\lor B&
+				%\infer[a]A{}&
+				%\infer[b]B{}
+				\infer*C{
+					\infer[a]A{}
+				}&
+				\infer*C{
+					\infer[b]B{}
+				}
+			}
+		\]
+	\end{comment}
+	\begin{thm}
+		In the category of sets, the purely category theoretical property of \emph{pre-cancellativity} property exactly coincides with notion of superjectivity for sets and functions.
+
+		In notations: Let $X, Y \in \obSet, e: X \to Y$. Then
+		\[
+			\infer*{
+				\forall y \in Y \bullet \exists x \in X \bullet ex = y
+			}
+			{
+				\forall Z \in \obSet \bullet \forall f_1, f_2: Y \to Z \bullet e\ogreaterthan f_1 = e\ogreaterthan f_2 \to f_1 = f_2
+			}
+		\]
+	\end{thm}
+	\begin{proof}
+		Elhagyva az intuicionista logika területét, megelégszünk azzal hogy az intuicionista logikán belül az alábbi tétel bizonyításával is megelégszünk:
+	\end{proof}
+	\begin{thm}
+		\[
+			\infer*{
+				\exists Z \in \obSet \bullet \exists f_1, f_2: Y \to Z \bullet f_1 \neq f_2 \land e\ogreaterthan f_1 = e\ogreaterthan f_2
+			}
+			{
+				\exists y_0 \in Y \bullet \forall x \in X \bullet ex \neq y_0
+			}
+		\]
+	\end{thm}
+	\begin{proof}
+		Konzervatív bővítés (,,szintaktikus cukor''):
+		\begin{align}
+			\mathcal Z    &:\equiv \setOf{0, +1, -1},\\
+			\mathcal{f_1} &:\equiv \setAbs{y \mapsto \begin{cases}+1&\text{ha }y=y_0\\0&\text{ha } y\neq y_0\end{cases}\in Y\times\mathcal Z}{y\in Y},\\
+			\mathcal{f_2} &:\equiv \setAbs{y \mapsto \begin{cases}-1&\text{ha }y=y_0\\0&\text{ha } y\neq y_0\end{cases}\in Y\times\mathcal Z}{y\in Y}.
+		\end{align}
+		Ezzel a jelöléssel már:
+		\[
+			\infer[\parenth{\exists I}]{
+				%\exists Z \in \obSet \bullet \exists f_1, f_2: Y \to Z \bullet f_1 \neq f_2 \land e\ogreaterthan f_1 = e\ogreaterthan f_2
+				\exists f_1 \neq f_2 \bullet e\ogreaterthan f_1 = e\ogreaterthan f_2
+			}
+			{
+				\infer[(\exists E)_a]{
+					\mathcal{f_1} \neq \mathcal{f_2} \land e\ogreaterthan \mathcal{f_1} = e\ogreaterthan \mathcal{f_2}
+				}{
+					\exists y_0 \bullet \forall x \bullet ex \neq y_0
+					&
+					\infer[(\land I)]{
+						\mathcal{f_1} \neq \mathcal{f_2} \land e\ogreaterthan \mathcal{f_1} = e\ogreaterthan \mathcal{f_2}
+					}{
+						\infer{
+							\mathcal{f_1} \neq \mathcal{f_2}
+						}{
+							\infer[(\exists I)]{
+								\exists y \bullet \mathcal{f_1}y \neq \mathcal{f_2}y
+							}{
+								\infer{
+									\mathcal{f_1}y_0 \neq \mathcal{f_2}y_0
+								}{
+									\infer{\mathcal{f_1}y_0 = +1}{}
+									&
+									\infer{\mathcal{f_2}y_0 = -1}{}
+								}
+							}
+						}
+						&
+						\infer{
+							e\ogreaterthan \mathcal{f_1} = e\ogreaterthan \mathcal{f_2}
+						}{
+							\infer[(\forall I)]{
+								%\forall x \in X \bullet \mathcal{f_1(ex)} = \mathcal{f_2(ex)}
+								\forall x \bullet \mathcal{f_1(ex)} = \mathcal{f_2(ex)}
+							}{
+								\infer{
+									\mathcal{f_1}(ex) = \mathcal{f_2}(ex)
+								}{
+									\infer{
+										\mathcal{f_1}(ex) = 0
+									}{
+										\infer[(\forall E)]{
+											ex \neq y_0
+										}{
+											\infer[a]{
+												\forall x \bullet ex \neq y_0
+											}{}
+										}
+									}
+									&
+									\infer{
+										\mathcal{f_2}(ex) = 0
+									}{
+										\infer[(\forall E)]{
+											ex \neq y_0
+										}{
+											\infer[a]{
+												\forall x \bullet ex \neq y_0
+											}{}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		\]%x \in X \to \mathcal{f_1}\parenth{ex} = 0 \land \mathcal{f_2}\parenth{ex} = 0
+	\end{proof}
+	\begin{comment}
+		\infer[\parenth{\forall I}]{
+			\forall x \in X \bullet \mathcal{f_1}\parenth{ex} = \mathcal{f_2}\parenth{ex}
+		}{
+			\infer[\parenth{\to I}_a]{
+				x \in X \to \mathcal{f_1}\parenth{ex} = \mathcal{f_2}\parenth{ex}
+			}{
+				\infer{
+					\mathcal{f_1}\parenth{ex} = \mathcal{f_2}\parenth{ex}
+				}{
+					\infer[a]{x \in X}{}
+				}
+			}
+		}
+	\end{comment}
+\end{document}
