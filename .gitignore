@@ -1,0 +1,8 @@
+*.aux
+category-theory/*.log
+category-theory/*.dvi
+category-theory/*.pdf
+Coq/*.glob
+Coq/*.vo
+Coq/*.html
+Coq/*.css

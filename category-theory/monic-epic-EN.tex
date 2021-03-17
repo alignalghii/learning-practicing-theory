@@ -58,37 +58,50 @@
 	For the beginning, two ,,fabricated'' notations and concepts will be introduced for the sake of conciseness and disambiguity:
 
 	\begin{ntn}[Pre- vs suffix function writing style compositions]
-		Instead of the usual $\circ$ notation of composition, I will use two custom, ,,fabricated'' notations for disambiguity's sake:
-		\begin{align}
-			\parenth{f \ogreaterthan g}x &:= g\parenth{fx}\\
-			\parenth{f \olessthan g}x &:= f\parenth{gx}
-		\end{align}
-		Thus, $\ogreaterthan$ is meant as the ,,pipeline-oder''/,,semicolon-order'' notation or the ,,suffix-function-writing style composition'', and $\olessthan$ as the ,,prefix-function-writing style composition'' notation. Usually I will use $\ogreaterthan$.
+	There are two ,,writing direction'' conventions for the notation of composition in the literature.
+	\begin{description}
+		\item[,,Pipeline-oder''/,,semicolon-order'' / ,,suffix-function-writing''] style:
+		\[
+			\parenth{f \ogreaterthan g}x := g\parenth{fx}
+		\].
+		\item[,,Prefix-function-writing''] style:
+		\[
+			\parenth{f \olessthan g}x := f\parenth{gx}
+		\].
+	\end{description}
+	,,Prefix-function-writing'' style notation of composition is more widespread in literature, and usally denotes composition simply with $\circ$. The other writing direction, the ,,pipeline-oder''/,,semicolon-order'' / ,,suffix-function-writing'' style is much rarer in literature, although it occures sometimes, and denotes composition either with $\circ$, or sometimes with semicolon symbol (;).
+
+	Writing direction, i.e. this directionality of notations of composition can cause some confusion, because the name of some terms (left-cancellability, right-cancellability, left inverse, right inverse) is tightly coupled with the writing direction of composition. In order to avoid any ambiguity in these tightly coupled fields, I will force things being explicit with the following policies:
+		\begin{itemize}
+			\item I will denote the directionality explicitly: $\ogreaterthan$ versus $\olessthan$, defined them as above. Shortly again: $\ogreaterthan$ is meant as the ,,pipeline-oder''/,,semicolon-order'' notation or the ,,suffix-function-writing style composition'', and $\olessthan$ as the ,,prefix-function-writing style composition'' notation.
+			\item I will prefer $\ogreaterthan$ to $\olessthan$, because $\ogreaterthan$ seems to me much more ,,natural'' (despite of its very rare usage in literature). I will almost entirely abandon the usage of $\olessthan$ (despite of its widespreadness in literature), because it seems to me to have ,,less naturalness'', a ,,mere cultural bias monster'' lacking theoretical roots (although it may have some theoretical merits related to some later topics like lambda-notation, currying, and propagation of lazy evaluation).
+			\item I will avoid terms tightly coupled with directionality of writing, and instead of ,,right'' or ,,left'' qualifiers, I will use ,,pre-'' or ,,post-'': e.g. ,,pre-cancellativity'', ''post-cancellativity'', ,,pre-inverse'', ,,post-inverse''. These will be defined in details soon below.
+		\end{itemize}
 	\end{ntn}
 
-	The above ,,disambiguation forking'' of the notations for compsition make a need to ,,rebuild'' also an algebraic concept:
+	Thus, the above ,,disambiguation explicitness forcing'' policy of notations for compsition make the following concepts to be ,,rebuilt'':
 
 	\begin{dfn}[Pre- and postcancellability, epimorphisms and monomorphisms]
 		The usual terms ,,\emph{left cancellability}'' and ,,\emph{right cancellability}'' are ambigous if it is not fixed whether they are meant on $\ogreaterthan$ or $\ogreaterthan$, because ,,left cancellability'' on $\ogreaterthan$ is right-cancellability on $\ogreaterthan$, and vice versa. In order to ensure disambiguity in a quick and concise way, the following fabricated terms will be used:
 		\begin{description}
-			\item[Pre-cancellability:] The morphism $e$ has the \emph{pre-cancellation property} (i.e. it is \emph{pre-cancellable}), iff it is left-cancellable on $\ogreaterthan$. An equivalent definition: iff it is right-cancellable on $\olessthan$.
+			\item[Pre-cancellability:] The morphism $e$ has the \emph{pre-cancellation property} (i.e. it is \emph{pre-cancellable}), iff it is left-cancellable on $\ogreaterthan$. The equivalent ,,twin'' definition: iff it is right-cancellable on $\olessthan$.
 
 			In details: the morphism $e$ is pre-cancellable, iff for all (after-composable) $f_1$, $f_2$ morphisms
 			\begin{align}
-				e \ogreaterthan f_1 = e \ogreaterthan f_2 \to f_1 = f_2,\\\intertext{or, expressed in an equivalent way,}
+				e \ogreaterthan f_1 = e \ogreaterthan f_2 \to f_1 = f_2,\\\intertext{or, alternatively, expressed in the equivalent ,,twin'' way:}
 				f_1 \olessthan e = f_2 \olessthan e \to f_1 = f_2
 			\end{align}
 			The morphism $e$ having this property is called also being ,,\emph{epic}'', or being an ,,\emph{epimorphism}''.
-			\item[Post-cancellability:]  The morphism $m$ has the \emph{post-cancellation property} (i.e. it is \emph{post-cancellable}), iff it is right-cancellable on $\ogreaterthan$. An equivalent definition: iff it is left-cancellable on $\olessthan$.
+			\item[Post-cancellability:]  The morphism $m$ has the \emph{post-cancellation property} (i.e. it is \emph{post-cancellable}), iff it is right-cancellable on $\ogreaterthan$. The equivalent ,,twin'' definition: iff it is left-cancellable on $\olessthan$.
 
 			In details:  the morphism $m$ is post-cancellable, iff for all (before-composable) $f_1$, $f_2$ morphisms
 			\begin{align}
-				f_1 \ogreaterthan m = f_2 \ogreaterthan m \to f_1 = f_2,\\\intertext{or, in an equivalent way,}
+				f_1 \ogreaterthan m = f_2 \ogreaterthan m \to f_1 = f_2,\\\intertext{or, alternatively, expressed in the equivalent ,,twin'' way:}
 				m \olessthan f_1 = m \olessthan f_2 \to f_1 = f_2
 			\end{align}
 			The morphism $m$ having this property is called also being ,,\emph{monic}'', or being a ,,\emph{monomorphism}''.
 		\end{description}
-		Summary in short
+		Summary in short:
 		\begin{itemize}
 			\item ,,Pre-cancellability'' is left-cancellability on $\ogreaterthan$, right-cancellability on $\olessthan$.
 			\item ,,Post-cancellability'' is right-cancellability on $\ogreaterthan$, left-cancellability on $\olessthan$.
@@ -96,21 +109,55 @@
 			\item Post-cancellable morphisms are called ,,monomorphisms'' by definition.
 		\end{itemize}
 	\end{dfn}
+	\begin{dfn}
+		In an entirely analogous way to the above, another, ,,parallell'' pair of concepts can be defined:
+		\begin{itemize}
+			\item ,,\emph{pre-inverse}'' (left inverse on $\ogreaterthan$, and right inverse on $\olessthan$)
+			\[f^{-1}_{\text{pre}} \ogreaterthan f = \text{id}_{\text{cod}_f},\]
+			\item ,,\emph{post-inverse}'' (right inverse on $\ogreaterthan$, and left inverse on $\olessthan$)
+			\[f \ogreaterthan f^{-1}_{\text{post}} = \text{id}_{\text{dom}_f}.\]
+		\end{itemize}
+		A pre-inverse is called also a \emph{section}, and a post-inverse is called a \emph{retraction}.
+		Or, expressing the same in other words: a morphism that has a post-inverse is called a section, and a morphism that has a pre-inverse is called a retraction.
+
+		It can be easily proven that every section is a monomorphism, and every retraction is an epimorhpism.
+		Easy to remember by a rhyme expressing the proof's main pattern:
+		\begin{quotation}
+			,,\emph{Every morphism that has a post-inverse is also post-cancellative consequently, and every morphism that has a pre-inverse is also pre-cancellative consequently''}.
+		\end{quotation}
+		\begin{proof}
+			\begin{gather}
+				\intertext{Assume morphism $s$ being a section, i.e.~being itself a pre-inverse, i.e.~having a post-inverse $s^{-1}_{\text{post}}$, and after\-wards let us begin with the antecedent part of the intended conclusion of post-cancellativity:}
+				f_1 \ogreaterthan s = f_2 \ogreaterthan s \\\intertext{\dots post-compose both sides of the equation with $\dots \ogreaterthan s^{-1}_{\text{post}}$, assumed to exist:}
+				\parenth{f_1 \ogreaterthan s} \ogreaterthan s^{-1}_{\text{post}} = \parenth{f_2 \ogreaterthan s} \ogreaterthan s^{-1}_{\text{post}}\\\intertext{\dots use associativity of $\ogreaterthan$:}
+				f_1 \ogreaterthan \underbrace{\parenth{s \ogreaterthan s^{-1}_{\text{post}}}}_{\text{id}_{\text{cod}_{f_1}}} = f_2 \ogreaterthan \underbrace{\parenth{s \ogreaterthan s^{-1}_{\text{post}}}}_{\text{id}_{\text{cod}_{f_2}}}\\\intertext{\dots use the neutrality of id:}
+				f_1 = f_2\\\intertext{\dots and thus we have arrived to the consequent part of the intended conclusion of post-cancellativity of section $s$. Thus we have proven any general indeterminate section $s$ being also a monomorphism consequently.}
+			\end{gather}
+		\end{proof}
+
+		The second theorem (every retraction being an epimorphism consequently) can be proven in an analogous manner. \qedsymbol
+
+		As for the converse theorem pair of the above theorem pair, it does not hold generally (does not hold independently on the specific category), but it can hold for some specific categories, like e.g. for $\setCat$. For example, as for the converse theorem about every epimorphism being a retraction, although it can be proven on $\setCat$, but the proof of this converse theorem uses specific facts of set theory like the axiom of choice, thus it is not of category theoretic general validity.
+	\end{dfn}
+
+	We will not prove these above in details, instead, let us return to the $\setCat$ category and prove two other, more basic theorems on this specific category.
+	For the sake of practicing another branch of mathematics, let us do the proofs in a purely formalized way in matematical logic, using the Gentzen-style natural deductions system, by drawing the exact formalized deducton tree. Lest us also try to separate out the parts which stay inside therrealm of intuitionistic logic!
+
 	\begin{thm}[Surjection---epimorphism coincidence in $\setCat$ category]
 		In the category of sets, the purely category theoretical property of \emph{pre-cancellativity} property exactly coincides with notion of surjectivity for sets and functions.
 		Thus, the pre-cancellative morphisms (so called ,,\emph{epimorphisms}'') are exactly the surjective functions in $\mathbf{Set}$.
 	\end{thm}
-	\begin{proof}
-		See the following two subtheorems (for the two directions).
-		One of the directions is easier, for two reasons. First, its proof stays inside the realm of intuitinostic rules of logic (no need for the addtional rules beyond that, like reduction ad absurdum). Second, the other direction not only needs the full power of classical logic (including reductio ad absurdum), but also it needs the construction of two specific terms.
+
+		The proof of this theorem will be ,,delegated'' to the following two sub\-theorems (the part theorems according to the two directions).
+		One of the directions is easier, for two reasons. First, its proof stays inside the realm of intuitionistic rules of logic (no need for the addtional rules beyond that, like reduction ad absurdum). Second, the other direction not only needs the full power of classical logic (including reductio ad absurdum), but also it needs the construction of two specific terms.
 
 		So let us begin with the easier direction.
-	\end{proof}
+
 	\begin{sth}[Surjections are epimorphisms in $\setCat$]
 		The direction of ,,surjective functions are epimorphisms (because having the pre-cancellation property)''.
 
 		Let $s$ be a surjective function:\[\forall y \exists x \bullet sx = y\]should hold.
-		We clam that using the surjectivity of $s$, we have to be able to deduce that $s$ holds the pre-cancellability property for composition --- i.e. $s$ has the category theoretic property of \emph{beging an epimorphism}, in notation, it means that for arbitrary $f_1$, $f_2$ functions (where both $f_1$ and $f_2$ are post-composable after $s$),
+		We claim that using the surjectivity of $s$, we have to be able to deduce that $s$ holds the pre-cancellability property for composition --- i.e. $s$ has the category theoretic property of \emph{beging an epimorphism}, in notation, it means that for arbitrary $f_1$, $f_2$ functions (where both $f_1$ and $f_2$ are post-composable after $s$),
 		\[s\ogreaterthan f_1 = s\ogreaterthan f_2 \to f_1 = f_2.\]
 
 		Summarizing all above, in pure notations: a deduction like this below
@@ -227,7 +274,7 @@
 			\mathcal{f_2} &:\equiv \setAbs{y \mapsto \left\langle\begin{array}{lr}-1,&\text{if $y=y_0$}\\0,&\text{if $y\neq y_0$}\end{array}\right. \in Y\times\mathcal Z}{y\in Y}.
 		\end{align}
 		We will use the new terms $\mathcal{f_1}$ and $\mathcal{f_1}$ in the deduction tree:
-		\begin{adjustwidth}{-130pt}{0pt}
+		\begin{adjustwidth}{-113pt}{0pt}
 			\[
 				\infer[\parenth{\exists I}]{
 					%\exists Z \in \obSet \bullet \exists f_1, f_2: Y \to Z \bullet f_1 \neq f_2 \land e\ogreaterthan f_1 = e\ogreaterthan f_2
